@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>School Club Submissions</title>
+  <style>
+    :root{--navy:#0b1f3a;--blue:#2f80ed;--green:#18a46f;--red:#d64550;--grey:#f3f6fa;--line:#dbe4ef;--text:#172033;--muted:#64748b;--white:#fff}
+    *{box-sizing:border-box} body{margin:0;font-family:Arial,system-ui,sans-serif;background:linear-gradient(#f8fbff,#eef4fa);color:var(--text)}
+    button,input,select,textarea{font:inherit} button{cursor:pointer}
+    header{position:sticky;top:0;z-index:5;background:#ffffffee;border-bottom:1px solid var(--line);backdrop-filter:blur(12px);display:flex;justify-content:space-between;align-items:center;padding:14px 6vw}
+    .brand{border:0;background:none;color:var(--navy);font-weight:900;font-size:18px}.brand small{display:block;color:var(--muted);font-weight:600;font-size:12px}
+    nav{display:flex;gap:8px}.navbtn{border:0;background:none;color:var(--muted);padding:10px 12px;border-radius:8px;font-weight:700}.navbtn:hover,.navbtn.active{background:#e9f2ff;color:var(--navy)}
+    main{max-width:1160px;margin:auto;padding:42px 20px 70px}
+    h1,h2,h3{color:var(--navy);margin-top:0} p{color:var(--muted);line-height:1.6}
+    .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:42px;align-items:center;min-height:72vh}
+    .hero h1{font-size:clamp(42px,7vw,76px);line-height:1}.eyebrow{color:var(--blue);font-weight:900}
+    .card,.club,.panel,.form,.empty,.modal{background:white;border:1px solid var(--line);border-radius:10px;box-shadow:0 14px 38px #0b1f3a12}
+    .panel{padding:26px}.chart{height:150px;display:grid;grid-template-columns:repeat(5,1fr);gap:12px;align-items:end;background:#f8fbff;border:1px solid var(--line);border-radius:10px;padding:16px;margin:20px 0}.chart span{background:linear-gradient(var(--blue),var(--green));border-radius:8px 8px 3px 3px}
+    .row{display:flex;justify-content:space-between;align-items:center;gap:12px}.preview{padding:13px;border:1px solid var(--line);border-radius:10px;margin-top:10px}
+    .btn{border:0;border-radius:8px;padding:12px 16px;font-weight:900;display:inline-flex;gap:8px;align-items:center;justify-content:center}.primary{background:var(--blue);color:white}.secondary{background:white;border:1px solid var(--line);color:var(--navy)}.danger{background:#fff1f2;color:var(--red)}.btn:disabled{background:#adc3df;cursor:not-allowed}
+    .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.step{padding:22px}.num{display:inline-grid;place-items:center;background:var(--navy);color:white;width:34px;height:34px;border-radius:8px;font-weight:900}
+    .title{display:flex;gap:12px;align-items:flex-start;margin-bottom:24px}.title .icon{background:#e9f2ff;color:var(--blue);width:42px;height:42px;display:grid;place-items:center;border-radius:8px}
+    .toolbar{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:22px}.search{background:white;border:1px solid var(--line);border-radius:8px;padding:0 12px;display:flex;align-items:center;min-height:48px}.search input{border:0;outline:0;min-width:260px}
+    .filters{display:flex;gap:8px;overflow:auto}.chip{border:1px solid var(--line);background:white;border-radius:999px;padding:10px 14px;font-weight:800}.chip.active{background:var(--navy);color:white}
+    .clubs{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.club{padding:22px;display:flex;flex-direction:column;gap:12px}.club p{flex:1}.tag,.status{border-radius:999px;padding:6px 10px;font-size:12px;font-weight:900}.tag{background:#edf2f7;color:var(--navy)}.open{background:#e8f8f2;color:#087052}.closed,.rejected{background:#fff1f2;color:#b42335}.pending{background:#e9f2ff;color:#195fb4}.accepted{background:#e8f8f2;color:#087052}.more{background:#fff7e6;color:#a16207}
+    .formwrap{display:grid;grid-template-columns:330px 1fr;gap:22px}.side{padding:24px}.form{padding:24px}.fields{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field{display:grid;gap:7px;margin-bottom:14px}.field span{font-weight:800;color:var(--navy)} input,select,textarea{width:100%;border:1px solid var(--line);border-radius:8px;padding:12px;background:#fbfdff} textarea{resize:vertical}.error{color:var(--red);font-size:13px;font-weight:800}.invalid{border-color:var(--red)}
+    .upload{border:1px dashed #9fb4d1;background:#f8fbff;border-radius:10px;padding:22px;text-align:center;color:var(--muted);margin-bottom:16px}
+    .empty{padding:36px;text-align:center}.list{display:grid;gap:12px}.list button{background:white;border:1px solid var(--line);border-radius:10px;padding:16px;text-align:left}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:18px}.stat{padding:18px}.stat strong{font-size:30px;color:var(--navy);display:block}
+    table{border-collapse:collapse;width:100%;min-width:760px} th,td{border-bottom:1px solid var(--line);padding:14px;text-align:left} th{color:var(--muted);font-size:12px}.tablewrap{overflow:auto}.adminFilters{display:flex;gap:12px;padding:16px;border-bottom:1px solid var(--line)}
+    .modalbg{position:fixed;inset:0;background:#0b1f3a88;display:grid;place-items:center;padding:18px;z-index:20}.modal{max-width:720px;width:100%;max-height:88vh;overflow:auto;padding:24px;position:relative}.x{position:absolute;right:14px;top:14px}
+    .detail{background:#f8fbff;border:1px solid var(--line);border-radius:8px;padding:12px;margin-top:10px}.detail small{color:var(--muted);display:block}.detail b{color:var(--navy)}
+    @media(max-width:850px){.hero,.formwrap{grid-template-columns:1fr}.clubs,.grid3,.stats{grid-template-columns:1fr 1fr}}
+    @media(max-width:620px){header{align-items:flex-start;flex-direction:column}nav{flex-wrap:wrap}.clubs,.grid3,.stats,.fields{grid-template-columns:1fr}.hero h1{font-size:44px}.search input{min-width:180px}.adminFilters{flex-direction:column}}
+  </style>
+</head>
+<body>
+<header>
+  <button class="brand" onclick="go('/')">ClubHub<small>School submissions</small></button>
+  <nav>
+    <button class="navbtn" onclick="go('/')">Home</button>
+    <button class="navbtn" onclick="go('/clubs')">Clubs</button>
+    <button class="navbtn" onclick="go('/submissions')">My Submissions</button>
+    <button class="navbtn" onclick="go('/admin')">Admin Preview</button>
+  </nav>
+</header>
+
+<main id="app"></main>
+
+<script>
+const API_BASE_URL = "https://api.example-school.local";
+
+const clubs = [
+  {id:"tech-team",name:"Tech Team",description:"Support assemblies, sound desks, projectors, and school event technology.",category:"Tech",isOpen:true,requirements:"Interest in technology",deadline:"12 Jun 2026"},
+  {id:"first-aid-team",name:"First Aid Team",description:"Help with event support and learn responsible first aid practices.",category:"Service",isOpen:true,requirements:"Teacher recommendation",deadline:"10 Jun 2026"},
+  {id:"media-team",name:"Media Team",description:"Capture photos, write short updates, and help manage school media moments.",category:"Culture",isOpen:true,requirements:"Portfolio optional",deadline:"15 Jun 2026"},
+  {id:"events-committee",name:"Events Committee",description:"Plan, organize, and run school events with the staff leadership team.",category:"Leadership",isOpen:true,requirements:"Reliable availability",deadline:"18 Jun 2026"},
+  {id:"debate-club",name:"Debate Club",description:"Practice public speaking, research, and debate preparation.",category:"Culture",isOpen:false,requirements:"Grade 9 to 12",deadline:"Closed"},
+  {id:"environmental-club",name:"Environmental Club",description:"Lead recycling drives, garden projects, and sustainability campaigns.",category:"Service",isOpen:true,requirements:"Commitment to projects",deadline:"20 Jun 2026"},
+  {id:"sports-committee",name:"Sports Committee",description:"Assist with fixtures, team notices, sports days, and match-day support.",category:"Sports",isOpen:true,requirements:"Sports involvement preferred",deadline:"14 Jun 2026"}
+];
+
+const sampleSubmissions = [
+  {id:"sub-001",referenceNumber:"SCH-2026-014",clubId:"tech-team",clubName:"Tech Team",fullName:"Ava Naidoo",grade:"10",className:"10B",email:"learner@school.edu",phone:"071 555 0184",motivation:"I enjoy solving technical problems and would like to support school events.",experience:"Helped set up microphones and edited short videos.",availability:"Tuesday and Thursday after school",status:"Pending",submittedAt:"2026-05-19",notes:"Awaiting teacher review."},
+  {id:"sub-002",referenceNumber:"SCH-2026-018",clubId:"media-team",clubName:"Media Team",fullName:"Liam Jacobs",grade:"11",className:"11A",email:"learner@school.edu",phone:"",motivation:"I want to help share school events clearly.",experience:"Took photos at the inter-house gala.",availability:"Monday lunch and Friday after school",status:"Accepted",submittedAt:"2026-05-17",notes:"Accepted for trial period."},
+  {id:"sub-003",referenceNumber:"SCH-2026-021",clubId:"first-aid-team",clubName:"First Aid Team",fullName:"Mia Williams",grade:"9",className:"9C",email:"mia@school.edu",phone:"072 555 0142",motivation:"I would like to learn useful support skills.",experience:"No formal experience yet, but I am responsible.",availability:"Wednesday after school",status:"Needs More Info",submittedAt:"2026-05-18",notes:"Please add parent consent form."}
+];
+
+function wait(ms=350){return new Promise(r=>setTimeout(r,ms))}
+function readSubs(){let saved=localStorage.getItem("club-subs");if(!saved){localStorage.setItem("club-subs",JSON.stringify(sampleSubmissions));return sampleSubmissions}return JSON.parse(saved)}
+function writeSubs(data){localStorage.setItem("club-subs",JSON.stringify(data))}
+
+// Mock API layer. Replace these with real fetch calls later.
+async function getClubs(){await wait();return clubs}
+async function getClubById(id){await wait();return clubs.find(c=>c.id===id)}
+async function createSubmission(payload){await wait(600);const sub={id:"sub-"+Date.now(),referenceNumber:"SCH-2026-"+Math.floor(100+Math.random()*900),status:"Pending",submittedAt:new Date().toISOString().slice(0,10),notes:"Submitted successfully. Waiting for review.",...payload};writeSubs([sub,...readSubs()]);return sub}
+async function getSubmissionsByStudent(query){await wait();query=query.toLowerCase().trim();return readSubs().filter(s=>s.email.toLowerCase()===query||s.referenceNumber.toLowerCase()===query)}
+async function getAdminSubmissions(filters={}){await wait();return readSubs().filter(s=>(!filters.club||filters.club==="All"||s.clubName===filters.club)&&(!filters.status||filters.status==="All"||s.status===filters.status))}
+async function updateSubmissionStatus(id,status){await wait();let data=readSubs().map(s=>s.id===id?{...s,status,notes:status==="Needs More Info"?"Teacher requested more information.":"Marked as "+status+"."}:s);writeSubs(data);return data.find(s=>s.id===id)}
+
+const app=document.getElementById("app");
+function go(path){location.hash=path}
+function route(){return location.hash.replace("#","")||"/"}
+function badge(status){let c=status==="Accepted"?"accepted":status==="Rejected"?"rejected":status==="Needs More Info"?"more":"pending";return `<span class="status ${c}">${status}</span>`}
+function setActive(){document.querySelectorAll(".navbtn").forEach(b=>b.classList.remove("active"))}
+function title(icon,h,p){return `<div class="title"><div class="icon">${icon}</div><div><h1>${h}</h1><p>${p}</p></div></div>`}
+
+async function render(){
+  setActive();
+  let r=route();
+  if(r==="/") return home();
+  if(r==="/clubs") return clubsPage();
+  if(r.startsWith("/submit/")) return submitPage(r.split("/")[2]);
+  if(r==="/submissions") return mySubmissions();
+  if(r==="/admin") return adminPage();
+  return notFound();
+}
+
+function home(){
+  app.innerHTML=`
+  <section class="hero">
+    <div>
+      <div class="eyebrow">Student activities portal</div>
+      <h1>School Club Submissions</h1>
+      <p>Browse school clubs and teams, submit applications, and track your request from one clean dashboard.</p>
+      <div class="actions">
+        <button class="btn primary" onclick="go('/clubs')">Browse Clubs →</button>
+        <button class="btn secondary" onclick="go('/submissions')">View My Submissions</button>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="row"><span>Open applications</span><b>7 clubs</b></div>
+      <div class="chart"><span style="height:52%"></span><span style="height:74%"></span><span style="height:40%"></span><span style="height:88%"></span><span style="height:64%"></span></div>
+      <div class="preview row"><b>Tech Team</b><span class="status open">Open</span></div>
+      <div class="preview row"><b>First Aid Team</b><span class="status pending">Pending</span></div>
+      <div class="preview row"><b>Media Team</b><span class="status open">Open</span></div>
+    </div>
+  </section>
+  <section class="grid3">
+    <div class="card step"><span class="num">1</span><h3>Choose a club</h3><p>Search by interest, category, and open status.</p></div>
+    <div class="card step"><span class="num">2</span><h3>Complete submission</h3><p>Send your details, motivation, and availability.</p></div>
+    <div class="card step"><span class="num">3</span><h3>Track status</h3><p>Check progress by email address or reference number.</p></div>
+  </section>`;
+}
+
+async function clubsPage(){
+  app.innerHTML=title("★","Browse Clubs","Find the club or team that fits your interests, then start a submission.")+`<div class="empty">Loading clubs...</div>`;
+  let data=await getClubs();
+  drawClubs(data,"All","");
+}
+
+function drawClubs(data,cat,search){
+  let filtered=data.filter(c=>(cat==="All"||c.category===cat)&&(`${c.name} ${c.description}`.toLowerCase().includes(search.toLowerCase())));
+  app.innerHTML=title("★","Browse Clubs","Find the club or team that fits your interests, then start a submission.")+`
+  <div class="toolbar">
+    <label class="search">🔎 <input id="search" placeholder="Search clubs" value="${search}"></label>
+    <div class="filters">${["All","Tech","Service","Sports","Culture","Leadership"].map(x=>`<button class="chip ${x===cat?"active":""}" onclick="drawClubs(window.clubData,'${x}',document.getElementById('search').value)">${x}</button>`).join("")}</div>
+  </div>
+  ${filtered.length?`<div class="clubs">${filtered.map(c=>`
+    <article class="club">
+      <div class="row"><span class="tag">${c.category}</span><span class="status ${c.isOpen?"open":"closed"}">${c.isOpen?"Open":"Closed"}</span></div>
+      <h2>${c.name}</h2><p>${c.description}</p>
+      <small>Deadline: ${c.deadline}</small><small>${c.requirements}</small>
+      <button class="btn primary" ${!c.isOpen?"disabled":""} onclick="go('/submit/${c.id}')">Submit →</button>
+    </article>`).join("")}</div>`:`<div class="empty"><h2>No clubs found</h2><p>Try another search or filter.</p></div>`}`;
+  window.clubData=data;
+  document.getElementById("search").oninput=e=>drawClubs(data,cat,e.target.value);
+}
+
+async function submitPage(id){
+  app.innerHTML=`<div class="empty">Preparing form...</div>`;
+  let club=await getClubById(id);
+  if(!club) return notFound("Club not found","The club link may be old.");
+  if(!club.isOpen) return app.innerHTML=`<div class="empty"><h1>${club.name} is closed</h1><p>This club is not accepting submissions right now.</p><button class="btn primary" onclick="go('/clubs')">Back to clubs</button></div>`;
+  app.innerHTML=`
+  <button class="btn secondary" onclick="go('/clubs')">← Back to clubs</button><br><br>
+  <div class="formwrap">
+    <aside class="card side"><span class="tag">${club.category}</span><h1>${club.name}</h1><p>${club.description}</p><p><b>Deadline:</b> ${club.deadline}</p><p><b>Requirements:</b> ${club.requirements}</p></aside>
+    <form class="form" onsubmit="submitForm(event,'${club.id}')">
+      <h2>Student Details</h2><p>Complete all required fields before submitting.</p>
+      <div class="fields">
+        ${field("fullName","Full name")}
+        ${select("grade","Grade",["8","9","10","11","12"])}
+        ${field("className","Class","Example: 10B")}
+        ${field("email","Student email","student@school.edu","email")}
+        ${field("phone","Phone number optional","Optional")}
+        ${field("availability","Availability","Tue and Thu after school")}
+      </div>
+      ${area("motivation","Why do you want to join?")}
+      ${area("experience","Previous experience")}
+      <div class="upload">File upload placeholder<br><small>Supporting documents can be connected later.</small></div>
+      <label><input type="checkbox" id="consent"> I confirm my information is correct and may be reviewed by the club teacher.</label>
+      <div id="errors"></div><br>
+      <button class="btn primary" style="width:100%">Submit Application</button>
+    </form>
+  </div>`;
+}
+
+function field(id,label,ph="",type="text"){return `<label class="field"><span>${label}</span><input id="${id}" type="${type}" placeholder="${ph}"></label>`}
+function select(id,label,opts){return `<label class="field"><span>${label}</span><select id="${id}"><option value="">Select</option>${opts.map(o=>`<option>${o}</option>`).join("")}</select></label>`}
+function area(id,label){return `<label class="field"><span>${label}</span><textarea id="${id}" rows="4"></textarea></label>`}
+
+async function submitForm(e,clubId){
+  e.preventDefault();
+  let club=clubs.find(c=>c.id===clubId);
+  let data={clubId,clubName:club.name,fullName:fullName.value,grade:grade.value,className:className.value,email:email.value,phone:phone.value,motivation:motivation.value,experience:experience.value,availability:availability.value};
+  let errs=[];
+  if(!data.fullName) errs.push("Full name is required.");
+  if(!data.grade) errs.push("Select a grade.");
+  if(!data.className) errs.push("Class is required.");
+  if(!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(data.email)) errs.push("Enter a valid email.");
+  if(data.motivation.length<20) errs.push("Motivation needs at least 20 characters.");
+  if(data.experience.length<10) errs.push("Experience needs at least 10 characters.");
+  if(!data.availability) errs.push("Availability is required.");
+  if(!consent.checked) errs.push("Consent is required.");
+  if(errs.length){errors.innerHTML=errs.map(x=>`<div class="error">${x}</div>`).join("");return}
+  errors.innerHTML="Submitting...";
+  let sub=await createSubmission(data);
+  app.innerHTML=`<div class="empty"><h1>Submission received</h1><p>Your application for <b>${club.name}</b> has been saved.</p><h2>${sub.referenceNumber}</h2><button class="btn primary" onclick="go('/submissions')">Track Submission</button></div>`;
+}
+
+function mySubmissions(){
+  app.innerHTML=title("✉","My Submissions","Enter your student email or reference number to check your applications.")+`
+  <form class="card" style="padding:16px;display:flex;gap:12px;flex-wrap:wrap" onsubmit="lookup(event)">
+    <label class="search" style="flex:1">🔎 <input id="lookupQuery" placeholder="Email or reference number"></label>
+    <button class="btn primary">Check Status</button>
+  </form>
+  <div class="empty"><h2>Ready when you are</h2><p>Try demo email <b>learner@school.edu</b> or reference <b>SCH-2026-014</b>.</p></div>
+  <div id="results"></div>`;
+}
+
+async function lookup(e){
+  e.preventDefault();
+  results.innerHTML=`<div class="empty">Looking up submissions...</div>`;
+  let data=await getSubmissionsByStudent(lookupQuery.value);
+  results.innerHTML=data.length?`<div class="list">${data.map(s=>`<button onclick='showModal(${JSON.stringify(s)})'><div class="row"><span><b>${s.clubName}</b><br><small>${s.referenceNumber} - ${s.submittedAt}</small></span>${badge(s.status)}</div></button>`).join("")}</div>`:`<div class="empty"><h2>No submissions found</h2><p>Check the spelling or use your reference number.</p></div>`;
+}
+
+async function adminPage(){
+  app.innerHTML=title("▦","Admin Preview","Frontend-only dashboard. Status buttons update mock state locally.")+`<div class="empty">Loading admin preview...</div>`;
+  drawAdmin(await getAdminSubmissions({club:"All",status:"All"}));
+}
+
+async function filterAdmin(){
+  drawAdmin(await getAdminSubmissions({club:adminClub.value,status:adminStatus.value}));
+}
+
+function drawAdmin(data){
+  let stats={total:data.length,pending:data.filter(s=>s.status==="Pending").length,accepted:data.filter(s=>s.status==="Accepted").length,rejected:data.filter(s=>s.status==="Rejected").length};
+  app.innerHTML=title("▦","Admin Preview","Frontend-only dashboard. Status buttons update mock state locally.")+`
+  <div class="stats">
+    <div class="card stat"><strong>${stats.total}</strong><small>Total submissions</small></div>
+    <div class="card stat"><strong>${stats.pending}</strong><small>Pending</small></div>
+    <div class="card stat"><strong>${stats.accepted}</strong><small>Accepted</small></div>
+    <div class="card stat"><strong>${stats.rejected}</strong><small>Rejected</small></div>
+  </div>
+  <section class="card">
+    <div class="adminFilters">
+      <select id="adminClub" onchange="filterAdmin()"><option>All</option>${clubs.map(c=>`<option>${c.name}</option>`).join("")}</select>
+      <select id="adminStatus" onchange="filterAdmin()"><option>All</option><option>Pending</option><option>Accepted</option><option>Rejected</option><option>Needs More Info</option></select>
+    </div>
+    <div class="tablewrap"><table><thead><tr><th>Student</th><th>Club</th><th>Date</th><th>Status</th><th>Action</th></tr></thead><tbody>
+      ${data.map(s=>`<tr><td><b>${s.fullName}</b><br><small>${s.email}</small></td><td>${s.clubName}</td><td>${s.submittedAt}</td><td>${badge(s.status)}</td><td><button class="btn secondary" onclick='showModal(${JSON.stringify(s)},true)'>View</button></td></tr>`).join("")}
+    </tbody></table></div>
+  </section>`;
+}
+
+function showModal(s,admin=false){
+  let div=document.createElement("div");
+  div.className="modalbg";
+  div.innerHTML=`<div class="modal">
+    <button class="btn secondary x" onclick="this.closest('.modalbg').remove()">×</button>
+    <span class="tag">${s.clubName}</span><h2>${s.fullName}</h2>
+    ${detail("Reference",s.referenceNumber)}${detail("Submitted",s.submittedAt)}${detail("Grade",s.grade+" - "+s.className)}${detail("Email",s.email)}${detail("Phone",s.phone||"Not provided")}${detail("Status",badge(s.status))}
+    ${detail("Motivation",s.motivation)}${detail("Previous experience",s.experience)}${detail("Availability",s.availability)}${detail("Notes",s.notes||"None")}
+    ${admin?`<div class="actions"><button class="btn primary" onclick="adminUpdate('${s.id}','Accepted')">Accept</button><button class="btn secondary" onclick="adminUpdate('${s.id}','Needs More Info')">Request More Info</button><button class="btn danger" onclick="adminUpdate('${s.id}','Rejected')">Reject</button></div>`:""}
+  </div>`;
+  document.body.appendChild(div);
+}
+
+function detail(a,b){return `<div class="detail"><small>${a}</small><b>${b}</b></div>`}
+async function adminUpdate(id,status){await updateSubmissionStatus(id,status);document.querySelector(".modalbg").remove();adminPage()}
+function notFound(h="Page not found",p="The page you are looking for does not exist."){app.innerHTML=`<div class="empty"><h1>404</h1><h2>${h}</h2><p>${p}</p><button class="btn primary" onclick="go('/')">Back Home</button></div>`}
+
+window.addEventListener("hashchange",render);
+render();
+</script>
+</body>
+</html>
